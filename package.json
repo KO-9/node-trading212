@@ -1,0 +1,28 @@
+{
+  "name": "trading212",
+  "version": "1.0.0",
+  "description": "Trading212 unofficial api",
+  "main": "index.js",
+  "scripts": {
+    "run": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "trading212"
+  ],
+  "author": "Konijntje",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "events": "^3.2.0",
+    "ws": "^7.4.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KO-9/node-trading212.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KO-9/node-trading212/issues",
+  },
+  "homepage": "https://github.com/KO-9/node-trading212/blob/main/README.md",
+}
