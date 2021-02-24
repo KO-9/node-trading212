@@ -25,6 +25,7 @@ This module aims to utilize and expose Trading212's RESTFul API and WebSocket AP
 6. [Missing features](#missingfeatures)
 7. [Discord](#discord)
 8. [Donate](#donate)
+9. [Referral](#referral)
 
 ## Uiapp
 For an example app which uses this API, check out my other project [Trading212 UI](https://github.com/KO-9/trading212-ui)
@@ -225,3 +226,6 @@ https://discord.gg/sgr43Yv3ue
 
 ## Donate
 Donate Bitcoin to help this project bc1q03vpdg8e7xq7uh9myh7dx6atfx2me94v69rah6
+
+## Referral
+If don't have a Trading212 account already, you can use my [referral link](https://www.trading212.com/invite/GbosLypr) and we'll both get a share
