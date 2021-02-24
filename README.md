@@ -25,7 +25,7 @@ This module aims to utilize and expose Trading212's RESTFul API and WebSocket AP
 6. [Missing features](#missingfeatures)
 7. [Discord](#discord)
 8. [Donate](#donate)
-9. [Referral](#referral)
+9. [Trading212 referral](#referral)
 
 ## Uiapp
 For an example app which uses this API, check out my other project [Trading212 UI](https://github.com/KO-9/trading212-ui)
@@ -219,6 +219,7 @@ Missing features
 * Charting
 * Caching
 * Better internal functions (get equity/price data from cache)
+* Much more
 
 ## Discord
 Join the discord to make suggestions, offer help or report bugs  
