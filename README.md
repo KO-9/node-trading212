@@ -27,19 +27,19 @@ This module aims to utilize and expose Trading212's RESTFul API and WebSocket AP
 8. [Donate](#donate)
 
 ## Uiapp
-For an example app which uses this API, check out my other project [Trading212 UI](https://github.com)
+For an example app which uses this API, check out my other project [Trading212 UI](https://github.com/KO-9/trading212-ui)
 
 ## Disclaimer
-This code is work in progress. I am in no way affiliated with trading212 and trading212 does not endorse this project.
+This code is work in progress. I am in no way affiliated with trading212 and trading212 does not endorse this project.  
 Use this code at your own risk. I afford no guarantee that the code is stable or error free.
 ## Installing
-You must first have [NodeJS](https://nodejs.org/en/download/) and [NPM](https://www.npmjs.com/get-npm) installed
+You must first have [NodeJS](https://nodejs.org/en/download/) and [NPM](https://www.npmjs.com/get-npm) installed  
 
-npm install trading212
+npm install trading212  
 
-alternatively
+alternatively  
 
-download the project source from this repo and then create a trading212 folder within your node_modules folder
+download the project source from this repo and then create a trading212 folder within your node_modules folder  
 ## Features
 ## Setup
 ```
@@ -219,8 +219,8 @@ Missing features
 * Better internal functions (get equity/price data from cache)
 
 ## Discord
-Join the discord to make suggestions, offer help or report bugs
-url
+Join the discord to make suggestions, offer help or report bugs  
+https://discord.gg/sgr43Yv3ue
 
 ## Donate
 Donate Bitcoin to help this project bc1q03vpdg8e7xq7uh9myh7dx6atfx2me94v69rah6
