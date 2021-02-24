@@ -8,12 +8,20 @@ This module aims to utilize and expose Trading212's RESTFul API and WebSocket AP
 4. [Usage/Features](#features)
     * [Setup](#setup)
     * [REST API](#rest)
-    * [Equity data](#equitydata)
+    * [Get all equity data](#equitydata)
     * [Get Bid/Ask Price](#restprices)
     * [REST BUY order](#restbuy)
     * [REST SELL order](#restsell)
+    * [REST modify order](#modifyorder)
+    * [REST delete order](#deleteorder)
+    * [Hotlist](#hotlist)
     * [WebSocket API](#websocketapi)
     * [WebSocket Established](#websocketestablished)
+    * [WS Listen for account events](#accountevents)
+    * [WS Subscribe to Price events](#pricesubscribe)
+    * [WS Listen for Price events](#priceevents)
+    * [WS Subscribe to routes](#websocketroutes)
+5. [Missing features](#missingfeatures)
 6. [Discord](#discord)
 7. [Donate](#donate)
 
@@ -108,15 +116,83 @@ trading212.on('account', (data) => {
   //console.log(data);
 });
 ```
-
+## Modifyorder
+Modify an order using the REST API
+```
+let order = account.orders[0];//Find order
+let orderId = order.orderId;
+let orderType = "LIMIT";
+let stopPrice = null;
+let limitPrice = "50";
+let quantity = -5;
+let timeValidity = "DAY";
+trading212.modifyOrder(orderId, orderType, stopPrice, limitPrice, quantity, timeValidity);
+//success
+trading212.on('account', (data) => {
+  //account data, containing positions, orders
+  console.log(data);
+})
+trading212.on('order-failure', (err) {
+  //error object
+  //console.log(err);
+})
+```
+## Deleteorder
+Delete an order using the REST API
+```
+let order = account.orders[0];//Find order
+let orderId = order.orderId;
+trading212.deleteOrder(orderId);
+//success
+trading212.on('account', (data) => {
+  //account data, containing positions, orders
+  console.log(data);
+})
+trading212.on('order-failure', (err) {
+  //error object
+  //console.log(err);
+})
+```
+## Hotlist
+Get rising (falling to come) stocks
+```
+let range = 'hourly';
+//let range = 'daily';
+let delta = 1;//1 hour, see https://www.trading212.com/en/hotlist
+trading212.getHotlist(range, delta);
+trading212.on('hotlist', (period, delta, data) => {
+    //do stuff
+});
+```
 ## Websocketapi
 ## Websocketestablished
 ```
 //WebSocket
 trading212.on('platform-subscribed', () => {//Trading212 WebSocket established
-  //Login for when connection is established
-  trading212.bulkSubscribe(["GME_US_EQ"]);//Subscribe to price feeds for this ticker
+  //Logic for when connection is established
 });
+```
+## Accountevents
+Listen for account events.
+This data contains your available cash, invested cash, open positions, orders, etc
+```
+trading212.on('account', (data) => {
+  console.log(data);
+})
+//Todo: document data structure
+```
+## Pricesubscribe
+Subscribe to one (or more) symbols
+```
+let subscribeSymbols = [
+  "GME_US_EQ",
+  "AMC_US_EQ",
+]
+trading212.bulkSubscribe(subscribeSymbols);//Subscribe to price feeds for this ticker
+```
+## Priceevents
+Listen for price events
+```
  //Listen for price events from trading212 websocket (must subscribe to ticker by using #bulkSubscribe
 trading212.on('price', (data) => {
   console.log(data.ticker);//Symbol/Ticker for equity
@@ -124,3 +200,24 @@ trading212.on('price', (data) => {
   console.log(data.bid);//Bidding price
 });
 ```
+## websocketroutes
+Subscribe to websocket routes
+```
+trading212.subscribeRoute('WEBPLATFORM');//This route is subscribed automatically when the websocket is opened. Gives data such as orders complete and watchlists
+trading212.subscribeRoute('ACCOUNT');//This route is subscribed automatically when the websocket is opened. Gives data for the account such as available cash, invested, positions, orders. Listen with trading212.on('account', (data) => {})
+//Document more routes
+```
+
+## Missingfeatures
+Missing features
+* Market orders
+* Charting
+* Caching
+* Better internal functions (get equity/price data from cache)
+
+## Discord
+Join the discord to make suggestions, offer help or report bugs
+url
+
+## Donate
+Donate Bitcoin to help this project bc1q03vpdg8e7xq7uh9myh7dx6atfx2me94v69rah6

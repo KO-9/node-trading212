@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "trading212"
+    "trading212",
+    "api"
   ],
   "author": "Konijntje",
   "license": "MIT",
@@ -21,8 +22,6 @@
     "type": "git",
     "url": "git+https://github.com/KO-9/node-trading212.git"
   },
-  "bugs": {
-    "url": "https://github.com/KO-9/node-trading212/issues",
-  },
-  "homepage": "https://github.com/KO-9/node-trading212/blob/main/README.md",
+  "bugs": "https://github.com/KO-9/node-trading212/issues",
+  "homepage": "https://github.com/KO-9/node-trading212/blob/main/README.md"
 }
