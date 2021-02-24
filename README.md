@@ -89,7 +89,7 @@ trading212.on('account', (data) => {
 Place SELL order
 ```
 
-  //Place limit sell of 5 $GME @ $50
+//Place limit sell of 5 $GME @ $50
 let ticker = "GME_US_EQ";
 let orderType = "LIMIT";
 let stopPrice = null;
@@ -97,6 +97,16 @@ let limitPrice = "50";
 let quantity = -5;
 let timeValidity = "DAY";
 trading212.placeOrder(ticker, orderType, stopPrice, limitPrice, quantity, timeValidity);
+//If order fails
+trading212.on('order-failture', (data) {
+  //Axios error
+});
+//If order succeeds
+trading212.on('account', (data) => {
+  //data.orders
+  //data.positions
+  //console.log(data);
+});
 ```
 
 ## Websocketapi
