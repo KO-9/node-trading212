@@ -28,6 +28,7 @@ This module aims to utilize and expose Trading212's RESTFul API and WebSocket AP
 
 ## Uiapp
 For an example app which uses this API, check out my other project [Trading212 UI](https://github.com/KO-9/trading212-ui)
+![UI](https://raw.githubusercontent.com/KO-9/trading212-ui/master/screenshots/view.png?raw=true "UI")
 
 ## Disclaimer
 This code is work in progress. I am in no way affiliated with trading212 and trading212 does not endorse this project.  
