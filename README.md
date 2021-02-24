@@ -3,9 +3,10 @@ This module aims to utilize and expose Trading212's RESTFul API and WebSocket AP
 
 # Table of Contents
 1. [About](#about)
-2. [Disclaimer](#disclaimer)
-3. [Installing](#installing)
-4. [Usage/Features](#features)
+2. [Example UI App](#uiapp)
+3. [Disclaimer](#disclaimer)
+4. [Installing](#installing)
+5. [Usage/Features](#features)
     * [Setup](#setup)
     * [REST API](#rest)
     * [Get all equity data](#equitydata)
@@ -21,10 +22,12 @@ This module aims to utilize and expose Trading212's RESTFul API and WebSocket AP
     * [WS Subscribe to Price events](#pricesubscribe)
     * [WS Listen for Price events](#priceevents)
     * [WS Subscribe to routes](#websocketroutes)
-5. [Missing features](#missingfeatures)
-6. [Discord](#discord)
-7. [Donate](#donate)
+6. [Missing features](#missingfeatures)
+7. [Discord](#discord)
+8. [Donate](#donate)
 
+## Uiapp
+For an example app which uses this API, check out my other project [Trading212 UI](https://github.com)
 
 ## Disclaimer
 This code is work in progress. I am in no way affiliated with trading212 and trading212 does not endorse this project.
