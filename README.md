@@ -48,10 +48,10 @@ download the project source from this repo and then create a trading212 folder w
 //Setup
 //Get these values from your browser cookie at live.trading212.com (F12 -> Application -> Storage -> Cookies)
 const CUSTOMER_SESSION = "ab01-cde3-f45g-6789-hijkl1337";
-const TRADING_SESSION_LIVE = "ab01-cde3-f45g-6789-hijkl1337";
+const TRADING212_SESSION_LIVE = "ab01-cde3-f45g-6789-hijkl1337";
 
 //Create handle and client
-const trading212Hanlder = require('trading212');
+const trading212Handler = require('trading212');
 const trading212 = new trading212Handler('live', CUSTOMER_SESSION, TRADING212_SESSION_LIVE);
 ```
 ## Rest
