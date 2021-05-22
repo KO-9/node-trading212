@@ -1,6 +1,6 @@
 var websocketClient = require('ws');
 const EventEmitter = require('events');
-const axios = require('axios')
+const axios = require('axios');
 
 
 var baseUrl = '.trading212.com';
@@ -65,49 +65,81 @@ class Trading212 extends EventEmitter {
         });
 
         ws.on('message', (data) => {
-            if(data == 3) {
-                ws.send(2);
+            if (data == 3) ws.send(2);
+            
+            let msgCode = '[none]', msgType = '[none]', msgObj;
+            try {
+                const objStart = data.indexOf('[') <= -1 || (data.indexOf('{') > -1 && data.indexOf('{') < data.indexOf('['))
+                    ? data.indexOf('{') : data.indexOf('[');
+                
+                if (objStart < 0) {
+                    console.log('message - no object - data :>> ', {chars20: data.substring(0,20)});
+                }
+                else {
+                    msgCode = data.substring(0, objStart);
+                    msgObj = JSON.parse( data.substring(objStart) );
+
+                    if (Array.isArray(msgObj)) msgType = msgObj[0];
+                }
+            }
+            catch (error) {
+                console.log('message - error :>> ', error, '\n =========== \n', data.substring(0,100));
             }
 
-            if(data.substring(0, '42["platform-message-sync"'.length) == '42["platform-message-sync"') {
-                this.subscribeRoute('WEBPLATFORM');
-                this.subscribeRoute('ACCOUNT');
-                ws.send('42["acc"]');
-                this.emit('platform-subscribed');
-            } else if(data.substring(0, '42["q"'.length) == '42["q"') {
-                data = data.substring('42["q"'.length);
-                data = data.substring(2, data.length - 1);
-                data = data.split("|");
-                data = {
-                    ticker: data[0],
-                    bid: data[1],
-                    ask: data[2],
+            if (msgCode === '42') {
+                switch (msgType) {
+                    case 'platform-message-sync':
+                        this.subscribeRoute('WEBPLATFORM');
+                        this.subscribeRoute('ACCOUNT');
+                        ws.send('42["acc"]');
+                        this.emit('platform-subscribed');
+                    break;
+             
+                    case 'q':
+                        data = data.substring('42["q"'.length);
+                        data = data.substring(2, data.length - 1);
+                        data = data.split("|");
+                        data = {
+                            ticker: data[0],
+                            bid: data[1],
+                            ask: data[2],
+                        }
+                        this.emit('price', data);
+                    break;
+                
+                    case 'q-sync':
+                        data = data.substring('42["q-sync"'.length);
+                        data = data.substring(2, data.length - 1);
+                        data = data.split("|");
+                        data = {
+                            ticker: data[0],
+                            bid: data[1],
+                            ask: data[2],
+                        }
+                        this.emit('price', data);
+                    break;
+
+                    case 'acc':
+                        data = data.substring(9);
+                        data = data.substring(0, data.length - 1);
+                        data = JSON.parse(data);
+                        this.emit('account', data);
+                    break;
+                    
+                    case 'acc-re': 
+                        data = data.substring(12);
+                        data = data.substring(0, data.length - 1);
+                        data = JSON.parse(data);
+                        this.emit('reaccount', data);                    
+                    break;
+
+                    
+                    case 'working-schedule-sync':
+                        // nothing
+
+                    default: 
+                        // nothing
                 }
-                this.emit('price', data);
-            } else if(data.substring(0, '42["q-sync"'.length) == '42["q-sync"') {
-                data = data.substring('42["q-sync"'.length);
-                data = data.substring(2, data.length - 1);
-                data = data.split("|");
-                data = {
-                    ticker: data[0],
-                    bid: data[1],
-                    ask: data[2],
-                }
-                this.emit('price', data);
-            } else if(data.substring(0, '42["working-schedule-sync"'.length) == '42["working-schedule-sync"') {
-               
-            } else if(data.substring(0, 9) == '42["acc",') {
-                data = data.substring(9);
-                data = data.substring(0, data.length - 1);
-                data = JSON.parse(data);
-                this.emit('account', data);
-            } else if(data.substring(0, 12) == '42["acc-re",') {
-                data = data.substring(12);
-                data = data.substring(0, data.length - 1);
-                data = JSON.parse(data);
-                this.emit('reaccount', data);
-            } else {
-                //console.log(data);
             }
         });
         
