@@ -73,7 +73,7 @@ class Trading212 extends EventEmitter {
                     ? data.indexOf('{') : data.indexOf('[');
                 
                 if (objStart < 0) {
-                    console.log('message - no object - data :>> ', {chars20: data.substring(0,20)});
+                    // console.log('message - no object - data :>> ', {chars20: data.substring(0,20)});
                 }
                 else {
                     msgCode = data.substring(0, objStart);
