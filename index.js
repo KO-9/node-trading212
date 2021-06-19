@@ -52,7 +52,7 @@ class Trading212 extends EventEmitter {
         ws = new websocketClient(wssUrl, opts);
 
         ws.on('open', () => {
-            
+            this.emit('connection-established')
         });
 
         ws.on('close', () => {
@@ -110,8 +110,6 @@ class Trading212 extends EventEmitter {
                 //console.log(data);
             }
         });
-        
-        this.getExchangeRate();
 
     }
 
@@ -152,13 +150,13 @@ class Trading212 extends EventEmitter {
 
     getHotlist(period, delta) {
         transport
-        .get(hotListUrl + "/" + period + "/" + delta)
+        .get(hotListUrl + period + "/" + delta)
         .then(res => { this.emit('hotlist', period, delta, res.data); } )
         .catch(err => { console.log(err) })
     }
     
     getExchangeRate() {
-        axios.get('https://api.exchangeratesapi.io/latest?base=GBP&symbols=USD')
+        axios.get('https://query2.finance.yahoo.com/v10/finance/quoteSummary/GBPUSD=X?modules=assetProfile%2CsummaryProfile%2CsummaryDetail%2CesgScores%2Cprice%2CincomeStatementHistory%2CincomeStatementHistoryQuarterly%2CbalanceSheetHistory%2CbalanceSheetHistoryQuarterly%2CcashflowStatementHistory%2CcashflowStatementHistoryQuarterly%2CdefaultKeyStatistics%2CfinancialData%2CcalendarEvents%2CsecFilings%2CrecommendationTrend%2CupgradeDowngradeHistory%2CinstitutionOwnership%2CfundOwnership%2CmajorDirectHolders%2CmajorHoldersBreakdown%2CinsiderTransactions%2CinsiderHolders%2CnetSharePurchaseActivity%2Cearnings%2CearningsHistory%2CearningsTrend%2CindustryTrend%2CindexTrend%2CsectorTrend')
         .then(res => {
             this.emit('forex', res.data);
         }).catch(err => {
@@ -201,7 +199,6 @@ class Trading212 extends EventEmitter {
             if(res.hasOwnProperty("data") && res.data.hasOwnProperty("account")) {
                 this.emit('account', res.data.account);
             } else {
-                console.log(res.data);
                 this.emit('order-failure', res.data);
             }
         }).catch(err => {
