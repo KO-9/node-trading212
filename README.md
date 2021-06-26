@@ -13,7 +13,6 @@ This module aims to utilize and expose Trading212's RESTFul API and WebSocket AP
     * [Get Bid/Ask Price](#restprices)
     * [REST BUY order](#restbuy)
     * [REST SELL order](#restsell)
-    * [REST modify order](#modifyorder)
     * [REST delete order](#deleteorder)
     * [Hotlist](#hotlist)
     * [WebSocket API](#websocketapi)
@@ -88,7 +87,7 @@ let quantity = 5;
 let timeValidity = "DAY";
 trading212.placeOrder(ticker, orderType, stopPrice, limitPrice, quantity, timeValidity);
 //If order fails
-trading212.on('order-failture', (data) {
+trading212.on('order-failture', (data) => {
   //Axios error
 });
 //If order succeeds
@@ -120,27 +119,6 @@ trading212.on('account', (data) => {
   //data.positions
   //console.log(data);
 });
-```
-## Modifyorder
-Modify an order using the REST API
-```
-let order = account.orders[0];//Find order
-let orderId = order.orderId;
-let orderType = "LIMIT";
-let stopPrice = null;
-let limitPrice = "50";
-let quantity = -5;
-let timeValidity = "DAY";
-trading212.modifyOrder(orderId, orderType, stopPrice, limitPrice, quantity, timeValidity);
-//success
-trading212.on('account', (data) => {
-  //account data, containing positions, orders
-  console.log(data);
-})
-trading212.on('order-failure', (err) {
-  //error object
-  //console.log(err);
-})
 ```
 ## Deleteorder
 Delete an order using the REST API
