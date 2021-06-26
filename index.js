@@ -165,30 +165,33 @@ class Trading212 extends EventEmitter {
         //
     }
 
+    validateOrder(instrumentCode, orderType, stopPrice, limitPrice, quantity, timeValidity) {
+        return new Promise(function (resolve, reject) {
+            transport
+            .post(baseUrl + orderUrl + '/validate', {
+                instrumentCode: instrumentCode,
+                orderType: orderType,
+                stopPrice: stopPrice,
+                limitPrice: limitPrice,
+                quantity: quantity,
+                timeValidity: timeValidity,
+
+            }).then(res => {
+                resolve('OK');
+            }).catch(err => {
+                if(err.response.hasOwnProperty('data') && err.response.data.hasOwnProperty('message')) {
+                    reject(err.response.data.message);
+                } else {
+                    reject("Unhandled error");
+                }
+            })
+        });
+    }
+
     placeOrder(instrumentCode, orderType, stopPrice, limitPrice, quantity, timeValidity) {
         transport
         .post(baseUrl + orderUrl, {
             instrumentCode: instrumentCode,
-            orderType: orderType,
-            stopPrice: stopPrice,
-            limitPrice: limitPrice,
-            quantity: quantity,
-            timeValidity: timeValidity,
-
-        }).then(res => {
-            if(res.hasOwnProperty("data") && res.data.hasOwnProperty("account")) {
-                this.emit('account', res.data.account);
-            } else {
-                this.emit('order-failure', res.data);
-            }
-        }).catch(err => {
-            console.log(err);
-        })
-    }
-
-    modifyOrder(orderId, orderType, stopPrice, limitPrice, quantity, timeValidity) {
-        transport
-        .put(baseUrl + orderUrl + "/" + orderId, {
             orderType: orderType,
             stopPrice: stopPrice,
             limitPrice: limitPrice,
