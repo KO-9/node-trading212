@@ -1,6 +1,6 @@
 {
   "name": "trading212",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Trading212 unofficial api",
   "main": "index.js",
   "scripts": {
